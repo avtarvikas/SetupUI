@@ -6,5 +6,12 @@ export const baseEarning = [
   "Jury Duty",
   "Overtime",
   "Regular",
-  "other"
+  "Other"
 ];
+
+export const accural = ["Paid Time Off", "Personal"];
+
+export const Tips = ["Tip Shortfall/MakeUp", "Personal"];
+
+export const footerDescription =
+  "Holiday,Overtime, and Regular earnings will be added to your company by default.";

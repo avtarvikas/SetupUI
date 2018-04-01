@@ -10,7 +10,7 @@ const MultiSelectButtons = props => {
       }}
     >
       <div className="uncheck-multiCheck-image-container">
-        <div className="uncheck-multiCheck-image" />
+        <div className="uncheck-multiCheck-image" style={props.style} />
         <div style={{ marginTop: "15px" }}>{props.name}</div>
       </div>
     </div>

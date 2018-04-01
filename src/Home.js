@@ -32,7 +32,7 @@ class Home extends Component {
             <div className="home-setup row">
               <div className="setup-title">Basic Setup</div>
               {setupArray.map(k => {
-                return <SetupOption key={k.name} data={k} />;
+                return <SetupOption key={k.name} data={k} {...this.props} />;
               })}
             </div>
             <div className="home-footer row">
