@@ -2,10 +2,12 @@ import React from "react";
 import multiSelectArrow from "../assets/multi_select_arrow.png";
 
 const MultiSelectButtons = props => {
-  return props.checked ? (
+  return !props.checked ? (
     <div
       className="check-buttons col-lg-3"
-      onClick={props.onSelect(props.name)}
+      onClick={() => {
+        props.onSelect(props.name);
+      }}
     >
       <div className="uncheck-multiCheck-image-container">
         <div className="uncheck-multiCheck-image" />
@@ -15,7 +17,9 @@ const MultiSelectButtons = props => {
   ) : (
     <div
       className="check-buttons col-lg-3"
-      onClick={props.onSelect(props.name)}
+      onClick={() => {
+        props.onSelect(props.name);
+      }}
     >
       <div className="multiCheck-image-container">
         <div className="multiCheck-image">

@@ -2,9 +2,24 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import ProgressBar from "../generic/ProgressBar";
 import MultipleCheckButtons from "../generic/MultipleCheckButtons";
+import PageFooter from "../generic/PageFooter";
 import { baseEarning } from "./Constants";
+import _ from "underscore";
 
 class EarningsSetup extends Component {
+  state = {
+    selectedBaseEarnings: []
+  };
+
+  handleOnChange(value) {
+    let arr = this.state.selectedBaseEarnings;
+    if (!_.contains(arr, value)) {
+      arr.push(value);
+    } else {
+      arr = _.without(arr, value);
+    }
+    this.setState({ selectedBaseEarnings: arr });
+  }
   render() {
     return (
       <div>
@@ -19,21 +34,24 @@ class EarningsSetup extends Component {
               Select from the list of earnings below ones you would like to add
               to your company.
             </p>
-            <div className="check-buttons-continers">
+            <div className="row check-buttons-continers">
               {baseEarning.map(k => {
                 return (
                   <MultipleCheckButtons
-                    checked
+                    checked={_.contains(this.state.selectedBaseEarnings, k)}
                     key={k}
                     name={k}
-                    onSelect={name => {
-                      console.log(name);
+                    onSelect={k => {
+                      this.handleOnChange(k);
                     }}
                   />
                 );
               })}
             </div>
           </div>
+        </div>
+        <div className="page-footer-container">
+          <PageFooter />
         </div>
       </div>
     );
