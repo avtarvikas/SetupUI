@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getAndSetValues } from "../actions";
 import ProgressBar from "../generic/ProgressBar";
 import OtherEarnings from "../components/OtherEarnings";
 import PageFooter from "../generic/PageFooter";
@@ -20,6 +22,68 @@ class InfoPage extends Component {
               more customizable options within Netchex once your company is
               created.
             </p>
+            <div className="row info-container">
+              <div className="col-lg-4" style={{ fontWeight: "600" }}>
+                <div style={{ marginBottom: "10px" }}>
+                  Base Earning
+                  <i
+                    className="fa fa-pencil"
+                    style={{ marginLeft: "15px", cursor: "pointer" }}
+                    onClick={() => {
+                      this.props.history.push("./earning-setup");
+                    }}
+                  />
+                </div>
+                {this.props.data.earning &&
+                  this.props.data.earning.selectedBaseEarnings.map(k => {
+                    return (
+                      <div key={k} style={{ fontWeight: "400" }}>
+                        {k}
+                      </div>
+                    );
+                  })}
+              </div>
+              <div className="col-lg-4" style={{ fontWeight: "600" }}>
+                <div style={{ marginBottom: "10px" }}>
+                  Accurals Earning
+                  <i
+                    className="fa fa-pencil"
+                    style={{ marginLeft: "15px", cursor: "pointer" }}
+                    onClick={() => {
+                      this.props.history.push("./accural-page");
+                    }}
+                  />
+                </div>
+                {this.props.data.accural &&
+                  this.props.data.accural.selectedAccurals.map(k => {
+                    return (
+                      <div key={k} style={{ fontWeight: "400" }}>
+                        {k}
+                      </div>
+                    );
+                  })}
+              </div>
+              <div className="col-lg-4" style={{ fontWeight: "600" }}>
+                <div style={{ marginBottom: "10px" }}>
+                  Tips Earning
+                  <i
+                    className="fa fa-pencil"
+                    style={{ marginLeft: "15px", cursor: "pointer" }}
+                    onClick={() => {
+                      this.props.history.push("./tips-page");
+                    }}
+                  />
+                </div>
+                {this.props.data.tips &&
+                  this.props.data.tips.selectedTips.map(k => {
+                    return (
+                      <div key={k} style={{ fontWeight: "400" }}>
+                        {k}
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
         </div>
         <div className="page-footer-container">
@@ -38,4 +102,13 @@ class InfoPage extends Component {
   }
 }
 
-export default withRouter(InfoPage);
+const stateToProps = state => {
+  return {
+    data: state.earningSetupData
+  };
+};
+const actionCreators = {
+  getAndSetValues: getAndSetValues
+};
+
+export default withRouter(connect(stateToProps, actionCreators)(InfoPage));

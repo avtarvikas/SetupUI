@@ -312,3 +312,8 @@ label{
     border: 1px solid #00cccc;
     cursor: pointer;
 }
+.info-container{
+    background: #F5F5F3;
+    margin: 25px 0px;
+    padding: 20px 10px;
+}

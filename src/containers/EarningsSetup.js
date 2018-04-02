@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getAndSetValues } from "../actions";
 import ProgressBar from "../generic/ProgressBar";
 import MultipleCheckButtons from "../generic/MultipleCheckButtons";
 import OtherEarnings from "../components/OtherEarnings";
@@ -12,6 +14,13 @@ class EarningsSetup extends Component {
     selectedBaseEarnings: [],
     other: false
   };
+  componentWillMount() {
+    if (this.props.data.earning) {
+      this.setState({
+        ...this.props.data.earning
+      });
+    }
+  }
 
   handleOnChange(value) {
     let arr = this.state.selectedBaseEarnings;
@@ -99,6 +108,7 @@ class EarningsSetup extends Component {
               this.props.history.push("/");
             }}
             onContinue={() => {
+              this.props.getAndSetValues("earning", this.state);
               this.props.history.push("/accural-page");
             }}
             desc={footerDescription}
@@ -108,5 +118,13 @@ class EarningsSetup extends Component {
     );
   }
 }
+const stateToProps = state => {
+  return {
+    data: state.earningSetupData
+  };
+};
+const actionCreators = {
+  getAndSetValues: getAndSetValues
+};
 
-export default withRouter(EarningsSetup);
+export default withRouter(connect(stateToProps, actionCreators)(EarningsSetup));

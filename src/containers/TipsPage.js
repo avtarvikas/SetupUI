@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import ProgressBar from "../generic/ProgressBar";
+import { connect } from "react-redux";
+import { getAndSetValues } from "../actions";
 import MultipleCheckButtons from "../generic/MultipleCheckButtons";
 import OtherEarnings from "../components/OtherEarnings";
 import PageFooter from "../generic/PageFooter";
@@ -10,10 +12,17 @@ import _ from "underscore";
 
 class TipsPage extends Component {
   state = {
-    selectedBaseEarnings: [],
+    selectedTips: [],
     other: false,
     tipped: "Yes"
   };
+  componentWillMount() {
+    if (this.props.data.tips) {
+      this.setState({
+        ...this.props.data.tips
+      });
+    }
+  }
 
   onRadioChange(e) {
     this.setState({
@@ -22,16 +31,16 @@ class TipsPage extends Component {
   }
 
   handleOnChange(value) {
-    let arr = this.state.selectedBaseEarnings;
+    let arr = this.state.selectedTips;
     if (!_.contains(arr, value)) {
       arr.push(value);
     } else {
       arr = _.without(arr, value);
     }
     if (value === "Other") {
-      this.setState({ selectedBaseEarnings: arr, other: !this.state.other });
+      this.setState({ selectedTips: arr, other: !this.state.other });
     } else {
-      this.setState({ selectedBaseEarnings: arr });
+      this.setState({ selectedTips: arr });
     }
   }
   render() {
@@ -60,6 +69,8 @@ class TipsPage extends Component {
               name="test"
               checked={this.state.tipped === "No"}
               label="No"
+              value="No"
+              onChange={k => this.onRadioChange(k)}
             />
             <p style={{ fontSize: "17px", padding: "15px 0px" }}>
               Which earnings do you want to add?
@@ -68,7 +79,7 @@ class TipsPage extends Component {
               {Tips.map(k => {
                 return (
                   <MultipleCheckButtons
-                    checked={_.contains(this.state.selectedBaseEarnings, k)}
+                    checked={_.contains(this.state.selectedTips, k)}
                     key={k}
                     name={k}
                     onSelect={k => {
@@ -86,6 +97,7 @@ class TipsPage extends Component {
               this.props.history.push("/accural-page");
             }}
             onContinue={() => {
+              this.props.getAndSetValues("tips", this.state);
               this.props.history.push("/info-page");
             }}
             desc="Tips are..."
@@ -96,4 +108,13 @@ class TipsPage extends Component {
   }
 }
 
-export default withRouter(TipsPage);
+const stateToProps = state => {
+  return {
+    data: state.earningSetupData
+  };
+};
+const actionCreators = {
+  getAndSetValues: getAndSetValues
+};
+
+export default withRouter(connect(stateToProps, actionCreators)(TipsPage));

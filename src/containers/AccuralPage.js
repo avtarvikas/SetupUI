@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getAndSetValues } from "../actions";
 import ProgressBar from "../generic/ProgressBar";
 import MultipleCheckButtons from "../generic/MultipleCheckButtons";
 import OtherEarnings from "../components/OtherEarnings";
@@ -10,10 +12,18 @@ import _ from "underscore";
 
 class AccuralPage extends Component {
   state = {
-    selectedBaseEarnings: [],
+    selectedAccurals: [],
     other: false,
     accuralPlan: "Yes"
   };
+
+  componentWillMount() {
+    if (this.props.data.accural) {
+      this.setState({
+        ...this.props.data.accural
+      });
+    }
+  }
 
   onRadioChange(e) {
     this.setState({
@@ -22,19 +32,20 @@ class AccuralPage extends Component {
   }
 
   handleOnChange(value) {
-    let arr = this.state.selectedBaseEarnings;
+    let arr = this.state.selectedAccurals;
     if (!_.contains(arr, value)) {
       arr.push(value);
     } else {
       arr = _.without(arr, value);
     }
     if (value === "Other") {
-      this.setState({ selectedBaseEarnings: arr, other: !this.state.other });
+      this.setState({ selectedAccurals: arr, other: !this.state.other });
     } else {
-      this.setState({ selectedBaseEarnings: arr });
+      this.setState({ selectedAccurals: arr });
     }
   }
   render() {
+    console.log(this.props);
     return (
       <div>
         <div className="page-title">Earnings Setup</div>
@@ -60,6 +71,8 @@ class AccuralPage extends Component {
               name="test"
               checked={this.state.accuralPlan === "No"}
               label="No"
+              value="No"
+              onChange={k => this.onRadioChange(k)}
             />
             <p style={{ fontSize: "17px", padding: "15px 0px" }}>
               Which earnings do you want to add?
@@ -68,7 +81,7 @@ class AccuralPage extends Component {
               {accural.map(k => {
                 return (
                   <MultipleCheckButtons
-                    checked={_.contains(this.state.selectedBaseEarnings, k)}
+                    checked={_.contains(this.state.selectedAccurals, k)}
                     key={k}
                     name={k}
                     onSelect={k => {
@@ -86,6 +99,7 @@ class AccuralPage extends Component {
               this.props.history.push("/earning-setup");
             }}
             onContinue={() => {
+              this.props.getAndSetValues("accural", this.state);
               this.props.history.push("/tips-page");
             }}
             desc="Accural plans are..."
@@ -96,4 +110,13 @@ class AccuralPage extends Component {
   }
 }
 
-export default withRouter(AccuralPage);
+const stateToProps = state => {
+  return {
+    data: state.earningSetupData
+  };
+};
+const actionCreators = {
+  getAndSetValues: getAndSetValues
+};
+
+export default withRouter(connect(stateToProps, actionCreators)(AccuralPage));
