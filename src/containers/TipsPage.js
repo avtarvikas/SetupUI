@@ -52,7 +52,7 @@ class TipsPage extends Component {
             <ProgressBar bar="60%" />
           </div>
           <div className="page-content">
-            <h1>Accural Plans</h1>
+            <h1>Tips Plans</h1>
             <p style={{ fontSize: "17px", padding: "15px 0px" }}>
               Do you have Tipped employees?
             </p>
