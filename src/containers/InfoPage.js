@@ -30,7 +30,7 @@ class InfoPage extends Component {
                     className="fa fa-pencil"
                     style={{ marginLeft: "15px", cursor: "pointer" }}
                     onClick={() => {
-                      this.props.history.push("./earning-setup");
+                      this.props.history.push("./base-page");
                     }}
                   />
                 </div>

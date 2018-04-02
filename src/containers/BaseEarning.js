@@ -9,7 +9,7 @@ import PageFooter from "../generic/PageFooter";
 import { baseEarning, footerDescription } from "./Constants";
 import _ from "underscore";
 
-class EarningsSetup extends Component {
+class BaseEarning extends Component {
   state = {
     selectedBaseEarnings: [],
     other: false
@@ -105,7 +105,7 @@ class EarningsSetup extends Component {
         <div className="page-footer-container">
           <PageFooter
             onBack={() => {
-              this.props.history.push("/");
+              this.props.history.push("/earning-setup");
             }}
             onContinue={() => {
               this.props.getAndSetValues("earning", this.state);
@@ -127,4 +127,4 @@ const actionCreators = {
   getAndSetValues: getAndSetValues
 };
 
-export default withRouter(connect(stateToProps, actionCreators)(EarningsSetup));
+export default withRouter(connect(stateToProps, actionCreators)(BaseEarning));

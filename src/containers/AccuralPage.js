@@ -96,7 +96,7 @@ class AccuralPage extends Component {
         <div className="page-footer-container">
           <PageFooter
             onBack={() => {
-              this.props.history.push("/earning-setup");
+              this.props.history.push("/base-page");
             }}
             onContinue={() => {
               this.props.getAndSetValues("accural", this.state);

@@ -18,7 +18,10 @@ class Home extends Component {
     ];
     return (
       <div className="main-container">
-        <div className="row m-0 page-container">
+        <div
+          className="row m-0 page-container"
+          style={{ background: "#fafafa" }}
+        >
           <div className="col-lg-8 home-description">
             <div style={{ width: "73%" }}>
               <div style={{ fontSize: "40px", marginBottom: "10px" }}>
