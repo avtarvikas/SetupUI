@@ -1,6 +1,19 @@
 export const SET_EARNING_DATA = "SET_EARNING_DATA";
 
-const earningSetupData = (state = {}, action) => {
+const initialState = {
+  questions: [
+    {
+      title: "What franchise would you rather play a game from?",
+      options: ["HALO", "FIFA", "X-BOX", "FABLE"]
+    },
+    {
+      title: "Which console would you prefer to play with friends?",
+      options: ["HALO", "FIFA", "X-BOX", "PLAYSTATION"]
+    }
+  ]
+};
+
+const quizData = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_EARNING_DATA:
@@ -14,7 +27,7 @@ const earningSetupData = (state = {}, action) => {
   }
 };
 
-export default earningSetupData;
+export default quizData;
 
 /** Action Creators */
 export const setValues = (name, options) => ({
