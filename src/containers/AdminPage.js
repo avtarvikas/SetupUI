@@ -53,8 +53,15 @@ class AdminPage extends Component {
     let arr = originalData;
     let newData = {
       title: data.Title,
-      options: [data.Option_1, data.Option_2, data.Option_3, data.Option_4]
+      options: []
     };
+    Object.keys(data).map(k => {
+      if (k !== "Title") {
+        if (data[k] !== "") {
+          newData.options.push(data[k]);
+        }
+      }
+    });
     if (this.state.edit) {
       arr[key] = newData;
     } else {
