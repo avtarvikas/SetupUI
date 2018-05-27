@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import quizData from "../actions/quizData";
+import taskData from "../actions/taskData";
 
-const rootReducer = combineReducers({ quizData });
+const rootReducer = combineReducers({ taskData });
 
 export default rootReducer;

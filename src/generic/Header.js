@@ -12,13 +12,13 @@ export default class Header extends React.Component {
                 alt="logo"
                 className="App-logo"
                 src={logo}
-                width="50"
-                height="37"
+                width="70"
+                height="57"
               />
             </div>
           </div>
           <div className="col-lg-11 nav-name">
-            <div className="header-name">React Quiz</div>
+            <div className="header-name">React Todo App</div>
           </div>
         </div>
       </div>
