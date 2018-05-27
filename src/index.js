@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 // import "./content/style.css";
-import "./main.css";
+import "./styles/styles.css";
 import RootRouter from "./RootRouter";
 import ReduxPromise from "redux-promise";
 import reducers from "./reducers";
